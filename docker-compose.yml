@@ -2,8 +2,8 @@ version: "3.3"
 
 services:
     api:
-        image: boulundeasv/deploy-example-api-1
+        image: boulundeasv/deploy-example-api-1:${BUILD_NUMBER}
         restart: always
     web:
-        image: boulundeasv/deploy-example-web-1
+        image: boulundeasv/deploy-example-web-1:${BUILD_NUMBER}
         restart: always

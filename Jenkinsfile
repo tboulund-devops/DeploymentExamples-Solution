@@ -52,9 +52,6 @@ pipeline {
                             sh "docker build . -t boulundeasv/deploy-example-api-1"
                         }
                     }
-                    deliver: {
-                        
-                    }
                 )
             }
         }

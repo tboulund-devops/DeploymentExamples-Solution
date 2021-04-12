@@ -5,7 +5,7 @@ services:
         environment:
             EnvironmentName: Production
         ports:
-            - 60002:80
+            - 62002:80
     web:
         ports:
-            - 60001:80
+            - 62001:80

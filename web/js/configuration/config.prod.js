@@ -1,3 +1,3 @@
 var Config = {
-    APIURL: "http://devops.setgo.dk:60002"
+    APIURL: "http://devops.setgo.dk:62000"
 }

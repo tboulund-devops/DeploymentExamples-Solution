@@ -5,7 +5,7 @@ services:
         environment:
             EnvironmentName: Development
         ports:
-            - 50002:80
+            - 61002:80
     web:
         ports:
-            - 50001:80
+            - 61001:80

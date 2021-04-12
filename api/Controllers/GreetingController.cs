@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace api.Controllers
 {
@@ -14,6 +15,7 @@ namespace api.Controllers
         [HttpGet]
         public String Get(string name)
         {
+            Log.Logger.Information(name + " is asking for a greeting");
             return $"Well hello there, {name}! This greeting comes from the {GetNameFromEnv()} environment";
         }
 

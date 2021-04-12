@@ -3,9 +3,11 @@ version: "3.3"
 services:
     api:
         environment:
-            EnvironmentName: Development
+            EnvironmentName: Staging
         ports:
             - 61002:80
     web:
+        environment:
+            EnvironmentName: Staging
         ports:
             - 61001:80

@@ -34,7 +34,7 @@ pipeline {
         }
         stage("Release to staging") {
             steps {
-                sh "docker-compose -f docker-compose.yml -f docker-compose.staging.yml up -d"
+                sh "docker-compose -p staging -f docker-compose.yml -f docker-compose.staging.yml up -d"
             }
         }
     }

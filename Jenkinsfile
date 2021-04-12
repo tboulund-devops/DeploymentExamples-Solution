@@ -42,6 +42,9 @@ pipeline {
             }
         }
         stage("Release to production") {
+            input {
+                message "Release to production?"
+            }
             steps {
                 sh "docker-compose -p production -f docker-compose.yml -f docker-compose.prod.yml up -d"
             }

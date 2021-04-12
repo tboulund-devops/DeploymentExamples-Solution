@@ -8,7 +8,7 @@ services:
         ports:
             - 62002:80
     web:
-        image: boulundeasv/deploy-example-web-1::${PROMOTE_BUILD_NUMBER}
+        image: boulundeasv/deploy-example-web-1:${PROMOTE_BUILD_NUMBER}
         environment:
             EnvironmentName: Production
         ports:

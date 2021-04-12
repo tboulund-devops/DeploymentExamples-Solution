@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage("Build + Deliver web project") {
+        stage("Build + Deliver web") {
             steps {
                 parallel(
                     build: {
@@ -18,20 +18,22 @@ pipeline {
                 )
             }
         }
-        stage("Build API project") {
+        stage("Build + Deliver API") {
             steps {
-                dir("api") {
-                    sh "dotnet build"
-                    sh "docker build . -t boulundeasv/deploy-example-api-1"
-                }
-            }
-        }
-        stage("Deliver api project") {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
-                    sh "docker push boulundeasv/deploy-example-api-1"
-                }
+                parallel(
+                    build: {
+                        dir("api") {
+                            sh "dotnet build"
+                            sh "docker build . -t boulundeasv/deploy-example-api-1"
+                        }
+                    },
+                    deliver: {
+                        withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
+                            sh "docker push boulundeasv/deploy-example-api-1"
+                        }
+                    }
+                )
             }
         }
         stage("Release to test") {

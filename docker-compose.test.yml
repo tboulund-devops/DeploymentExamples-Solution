@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+    api:
+        environment:
+            EnvironmentName: Test
+        ports:
+            - 61002:80
+    web:
+        environment:
+            EnvironmentName: Test
+        ports:
+            - 61001:80

@@ -2,13 +2,13 @@ version: "3.3"
 
 services:
     api:
-        image: boulundeasv/deploy-example-api-1:prod
+        image: boulundeasv/deploy-example-api-1:${PROMOTE_BUILD_NUMBER}
         environment:
             EnvironmentName: Production
         ports:
             - 62002:80
     web:
-        image: boulundeasv/deploy-example-web-1:prod
+        image: boulundeasv/deploy-example-web-1::${PROMOTE_BUILD_NUMBER}
         environment:
             EnvironmentName: Production
         ports:

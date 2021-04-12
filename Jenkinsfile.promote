@@ -7,8 +7,8 @@ pipeline {
         
         stage("Tag build as production") {
             steps {
-                sh "docker tag boulundeasv/deploy-example-web-1:${PROMOTE_BUILD_NUMBER} boulundeasv/todoit-api:prod"
-                sh "docker tag boulundeasv/deploy-example-api-1:${PROMOTE_BUILD_NUMBER} boulundeasv/todoit-web:prod"
+                sh "docker tag boulundeasv/deploy-example-web-1:${PROMOTE_BUILD_NUMBER} boulundeasv/deploy-example-web-1:prod"
+                sh "docker tag boulundeasv/deploy-example-api-1:${PROMOTE_BUILD_NUMBER} boulundeasv/deploy-example-api-1:prod"
             }
         }
         stage("Push tags to hub") {

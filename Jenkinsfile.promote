@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    parameters {
+        run description: '', filter: 'SUCCESSFUL', name: 'PROMOTE_BUILD', projectName: 'Teacher/DeploymentExamples-Solution'
+    }
+    stages {
+        
+        stage("Tag build as production") {
+            steps {
+                sh "docker tag boulundeasv/todoit-api:${PROMOTE_BUILD_NUMBER} boulundeasv/todoit-api:prod"
+                sh "docker tag boulundeasv/todoit-web:${PROMOTE_BUILD_NUMBER} boulundeasv/todoit-web:prod"
+            }
+        }
+        stage("Push tags to hub") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
+                    sh "docker push boulundeasv/todoit-api:prod"
+                    sh "docker push boulundeasv/todoit-web:prod"
+                }
+            }
+        }
+        stage("Release to production") {
+            steps {
+                sh "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d"
+            }
+        }
+    }
+}

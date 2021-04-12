@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+    api:
+        environment:
+            EnvironmentName: Production
+        ports:
+            - 60002:80
+    web:
+        ports:
+            - 60001:80

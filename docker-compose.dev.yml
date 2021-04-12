@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+    api:
+        environment:
+            EnvironmentName: Development
+        ports:
+            - 40002:80
+    web:
+        ports:
+            - 40001:80

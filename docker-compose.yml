@@ -1,0 +1,9 @@
+version: "3.3"
+
+services:
+    api:
+        image: boulundeasv/deploy-example-api-1
+        restart: always
+    web:
+        image: boulundeasv/deploy-example-web-1
+        restart: always

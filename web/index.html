@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live configuration</title>
+    <script src="js/configuration/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <style>
+        div {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14pt;
+            font-weight: bold;
+        }
+        #loading {
+            color: cornflowerblue;
+        }
+        #success {
+            color: green;
+        }
+        #error {
+            color: indianred;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Contacting API in order to get a greeting. Using URL: </div>
+    <div id="success"></div>
+    <div id="error"></div>
+    <script>
+        $(document).ready(function() {
+            $("#loading").text($("#loading").text() + Config.APIURL);
+            $.ajax({
+                url: Config.APIURL + "/Greeting",
+                type: "GET",
+                success: function(data) {
+                    $("#success").text(data);
+                },
+                error: function(jq, status, err) {
+                    console.log(jq);
+                    console.log("error: " + err);
+                    $("#error").text(status);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

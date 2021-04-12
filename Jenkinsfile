@@ -32,9 +32,9 @@ pipeline {
                 }
             }
         }
-        stage("Release to staging") {
+        stage("Release to test") {
             steps {
-                sh "docker-compose -p staging -f docker-compose.yml -f docker-compose.staging.yml up -d"
+                sh "docker-compose -p staging -f docker-compose.yml -f docker-compose.test.yml up -d"
             }
         }
     }

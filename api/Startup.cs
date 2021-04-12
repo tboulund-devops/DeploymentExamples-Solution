@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 namespace api
 {
@@ -26,6 +28,14 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .WriteTo.Debug()
+                .WriteTo.Console()
+                .WriteTo.Elasticsearch(ConfigureElasticSink())
+                .CreateLogger();
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -38,6 +48,15 @@ namespace api
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
+        }
+        
+        private static ElasticsearchSinkOptions ConfigureElasticSink()
+        {
+            return new ElasticsearchSinkOptions(new Uri(Environment.GetEnvironmentVariable("ElasticUri") ?? ""))
+            {
+                AutoRegisterTemplate = true,
+                IndexFormat = $"demo-app-{DateTime.UtcNow:yyyy-MM}"
+            };
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

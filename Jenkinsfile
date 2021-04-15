@@ -5,11 +5,15 @@ pipeline {
             steps {
                 parallel(
                     web: {
-                        sh "docker build . -t boulundeasv/deploy-example-web-1"
+                        dir("web") {
+                            sh "docker build . -t boulundeasv/deploy-example-web-1"
+                        }
                     },
                     api: {
-                        sh "dotnet build"
-                        sh "docker build . -t boulundeasv/deploy-example-api-1"
+                        dir("api") {
+                            sh "dotnet build"
+                            sh "docker build . -t boulundeasv/deploy-example-api-1"
+                        }
                     }
                 )
             }

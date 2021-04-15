@@ -16,15 +16,18 @@ pipeline {
         }
         stage("Deliver") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
-                }
                 parallel(
                     web: {
-                        sh "docker push boulundeasv/deploy-example-web-1"
+                        withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
+                            sh "docker push boulundeasv/deploy-example-web-1"
+                        }
                     },
                     api: {
-                        sh "docker push boulundeasv/deploy-example-api-1"
+                        withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
+                            sh "docker push boulundeasv/deploy-example-api-1"
+                        }
                     }
                 )
             }

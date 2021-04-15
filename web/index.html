@@ -28,7 +28,6 @@
     <div id="loading">Contacting API in order to get a greeting. Using URL: </div>
     <div id="success"></div>
     <div id="error"></div>
-    <div>New version with an additional label</div>
     <script>
         $(document).ready(function() {
             $("#loading").text($("#loading").text() + Config.APIURL);
@@ -42,8 +41,6 @@
                     $("#success").text(data);
                 },
                 error: function(jq, status, err) {
-                    console.log(jq);
-                    console.log("error: " + err);
                     $("#error").text(status);
                 }
             });

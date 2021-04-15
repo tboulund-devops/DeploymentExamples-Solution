@@ -1,3 +1,3 @@
 var Config = {
-    APIURL: "http://localhost:61002"
+    APIURL: "http://devops.setgo.dk:61002"
 }

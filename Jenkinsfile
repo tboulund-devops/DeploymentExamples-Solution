@@ -6,7 +6,7 @@ pipeline {
                 parallel(
                     web: {
                         sh "docker build . -t boulundeasv/deploy-example-web-1"
-                    }
+                    },
                     api: {
                         sh "dotnet build"
                         sh "docker build . -t boulundeasv/deploy-example-api-1"

@@ -6,13 +6,13 @@ pipeline {
                 parallel(
                     web: {
                         dir("web") {
-                            sh "docker build . -t boulundeasv/deploy-example-web-1"
+                            sh "docker build . -t boulundeasv/deploy-example-web-1:${BUILD_NUMBER}"
                         }
                     },
                     api: {
                         dir("api") {
                             sh "dotnet build"
-                            sh "docker build . -t boulundeasv/deploy-example-api-1"
+                            sh "docker build . -t boulundeasv/deploy-example-api-1:${BUILD_NUMBER}"
                         }
                     }
                 )
@@ -24,13 +24,13 @@ pipeline {
                     web: {
                         withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
-                            sh "docker push boulundeasv/deploy-example-web-1"
+                            sh "docker push boulundeasv/deploy-example-web-1:${BUILD_NUMBER}"
                         }
                     },
                     api: {
                         withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
-                            sh "docker push boulundeasv/deploy-example-api-1"
+                            sh "docker push boulundeasv/deploy-example-api-1:${BUILD_NUMBER}"
                         }
                     }
                 )

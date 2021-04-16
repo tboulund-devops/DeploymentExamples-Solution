@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        run description: '', filter: 'SUCCESSFUL', name: 'PROMOTE_BUILD', projectName: 'Teacher/CD/Deployment'
+    }
     stages {
         stage("Release to production") {
             steps {
